@@ -77,7 +77,7 @@ const TableComponent = (): JSX.Element => {
             </thead>
             <tbody>
               {data.map((item, index) => (
-                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center">
+                <tr key={index} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 text-center">
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {item.descricao}
                   </th>

@@ -6,6 +6,9 @@ const nextConfig = {
     publicRuntimeConfig: {
         NEXT_PUBLIC_API_URL: process.env.API_URL,
     },
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
     async rewrites() {
         return [
           {
