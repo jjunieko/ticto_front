@@ -1,11 +1,17 @@
+
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
 import Logo from "../../public/logo.svg";
 import CadastroTrasacoes from "./CadastroTransacoes";
 import TableComponent from "./TableComponent";
+import { GetStaticProps } from "next";
 
-const Header = ({ onTransactionCreated }) => {
+interface HeaderProps {
+  onTransactionCreated;
+}
+
+const Header: React.FC<HeaderProps> = ({ onTransactionCreated }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -41,6 +47,20 @@ const Header = ({ onTransactionCreated }) => {
       </div>
     </header>
   );
+};
+
+export const getStaticProps: GetStaticProps<HeaderProps> = async () => {
+  // Implemente aqui a lógica para buscar os dados necessários para o componente Header.
+  // Exemplo:
+  // const response = await fetch("URL_DA_API");
+  // const data = await response.json();
+
+  // Supondo que você queira retornar um valor padrão:
+  return {
+    props: {
+      onTransactionCreated: () => {} // Função vazia como exemplo
+    },
+  };
 };
 
 export default Header;

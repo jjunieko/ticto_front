@@ -3,6 +3,7 @@ import CardComponent from '@/components/CardComponent';
 
 import React, { useState } from 'react';
 import TableComponent from '@/components/TableComponent';
+import '../app/globals.css'
 
 const IndexPage = () => {
   

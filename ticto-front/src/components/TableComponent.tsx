@@ -5,9 +5,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { RegistroModel } from "./model/registro_model";
 import classnames from "classnames";
+import ptBR from "date-fns/locale/pt-BR";
+import { format } from 'date-fns'
+import { produtos } from "../app/api/produtos";
 
 const TableComponent = (): JSX.Element => {
   const [data, setData] = useState<RegistroModel[]>([]);
+  // const [data, setData] = useState<any[]>(produtos);  //descomente essse codigo
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [refreshTable, setRefreshTable] = useState(false);
@@ -25,6 +29,15 @@ const TableComponent = (): JSX.Element => {
         }));
         setData(processedData);
         setLoading(false);
+
+        //  USE ESSE CODIGO COMENTADO PARA PEGAR OS DADOS FICTICIOS DE UMA ARRAY
+        // try {
+        //   const processedData = data.map((item) => ({
+        //     ...item,
+        //     created_at: item.created_at.split("T")[0], // Extract only the date part
+        //   }));
+        //   setData(processedData);
+        //   setLoading(false);
       } catch (error) {
         console.error(error);
         setError("Erro ao obter os dados.");
@@ -87,10 +100,13 @@ const TableComponent = (): JSX.Element => {
                       "text-red-500 font-semibold": item.tipo === "saida",
                     })}
                   >
-                    {item.valor}
+                    {new Intl.NumberFormat("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    }).format(item.valor)}
                   </td>
                   <td className="px-6 py-4">{item.categoria}</td>
-                  <td className="px-6 py-4">{item.created_at}</td>
+                  <td className="px-6 py-4">{format(new Date(item.created_at), "dd/MM/yyyy", { locale: ptBR })}</td>
                   <td className="px-6 py-4">
                     <button onClick={() => handleDelete(item.id)} className="bg-transparent border-none">
                       <Image alt="trash" src={trashIcon} />

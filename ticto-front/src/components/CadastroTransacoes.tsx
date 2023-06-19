@@ -15,6 +15,7 @@ interface TransactionModalProps {
 const CadastroTrasacoes: React.FC<TransactionModalProps> = ({ isOpen, onRequestClose, onTransactionCreated }) => {
   const [entrada, setEntrada] = useState<boolean>(false);
   const [saida, setSaida] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     descricao: "",
     valor: "",
@@ -59,6 +60,7 @@ const CadastroTrasacoes: React.FC<TransactionModalProps> = ({ isOpen, onRequestC
       await axios.post("http://127.0.0.1:8000/registros", formData);
       onTransactionCreated();
       onRequestClose();
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -66,7 +68,7 @@ const CadastroTrasacoes: React.FC<TransactionModalProps> = ({ isOpen, onRequestC
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} className="modal" overlayClassName="modal-overlay">
-      <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div  className={`fixed inset-0 flex items-center justify-center z-50 ${isModalOpen ? 'blur' : ''}`}>
         <div className="bg-white w-full sm:w-[380px] h-full sm:h-[400px] rounded-lg shadow-lg p-4">
           <div className="flex justify-end">
             <button
